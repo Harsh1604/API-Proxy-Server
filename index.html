@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App in node.js with Rate Limiting & Caching </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class = "container">
+        <br><br>
+        <h1 class = "text-center">
+            Weather App
+        </h1>
+        <br><br>
+        <form id="form">
+            <div class="form-group container">
+                <input type="text" id="city" required placeholder="Enter City Name" class="form-control container">
+            </div>
+            <div class="form-group container">
+                <button class="btn btn-danger btn-block">
+                    Get Current Weather
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+var form = document.getElementById('form')
+var city = document.getElementById('city')
+let cityName = ""
+form.addEventListener('submit',(e) => {
+    e.preventDefault()
+
+    let cityName = city.value
+
+    //get request to our proxy server
+ 
+    const getWeather = async (city) => {
+        const url = "/getweather?q=" + city
+
+        const res = await fetch(url)
+
+        const data = await res.json()
+
+        console.log(data)
+    }
+
+    console.log(getWeather("Delhi"))
+})
+</script>
+</html>
